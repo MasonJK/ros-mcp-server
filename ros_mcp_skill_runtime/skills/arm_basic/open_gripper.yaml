@@ -1,0 +1,23 @@
+name: open_gripper
+description: Open the gripper using a configured service.
+safety_tier: act
+inputs:
+  type: object
+  properties: {}
+requires:
+  topics_read: []
+  topics_write: []
+  services: [/gripper/open]
+  actions: []
+validation:
+  checks: [permission_check]
+executor:
+  backend: mock
+  type: service
+  service_name: /gripper/open
+  service_type: std_srvs/srv/Trigger
+  fixed_request: {}
+logging:
+  record_before_state: true
+  record_after_state: true
+  record_result: true

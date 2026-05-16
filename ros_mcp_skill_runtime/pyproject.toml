@@ -1,0 +1,33 @@
+[project]
+name = "ros-mcp-skill-runtime"
+version = "0.1.0"
+description = "Skill-level robot runtime for ROS-MCP"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+    "fastmcp>=2.11.3",
+    "jsonschema>=4.25.1",
+    "mcp[cli]>=1.13.0",
+    "pydantic>=2.0",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+ros-mcp-skill-runtime = "ros_mcp_skill_runtime.server:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v"
+markers = ["integration: tests requiring ROS/turtlesim"]
