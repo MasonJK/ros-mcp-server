@@ -1,0 +1,32 @@
+name: move_forward
+description: Move turtlesim forward for a short duration.
+safety_tier: act
+inputs:
+  type: object
+  properties:
+    linear_x:
+      type: number
+      default: 1.0
+      minimum: 0.0
+      maximum: 2.0
+    duration_sec:
+      type: number
+      default: 1.0
+      minimum: 0.1
+      maximum: 5.0
+requires:
+  topics_read: []
+  topics_write: [/turtle1/cmd_vel]
+  services: []
+  actions: []
+validation:
+  checks: [duration_bounds, velocity_bounds]
+executor:
+  backend: ros_mcp
+  type: topic
+  topic_name: /turtle1/cmd_vel
+  message_type: geometry_msgs/Twist
+logging:
+  record_before_state: true
+  record_after_state: true
+  record_result: true

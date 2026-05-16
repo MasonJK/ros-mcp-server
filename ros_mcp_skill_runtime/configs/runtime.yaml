@@ -1,0 +1,13 @@
+permissions:
+  allowed_skill_dirs:
+    - skills/turtlesim
+    - skills/arm_basic
+  allow_raw_ros_tools: false
+  allowed_safety_tiers:
+    - observe
+    - prepare
+    - act
+  reject_safety_tiers:
+    - commit
+logging:
+  path: logs/skill_events.jsonl

@@ -1,0 +1,30 @@
+name: move_arm_home
+description: Move the robot arm to a safe home configuration.
+safety_tier: act
+inputs:
+  type: object
+  properties:
+    duration_sec:
+      type: number
+      default: 3.0
+      minimum: 0.5
+      maximum: 10.0
+requires:
+  topics_read: [/joint_states]
+  topics_write: []
+  services: []
+  actions: [/joint_trajectory_controller/follow_joint_trajectory]
+validation:
+  checks: [controller_available, duration_bounds]
+executor:
+  backend: mock
+  type: action
+  action_name: /joint_trajectory_controller/follow_joint_trajectory
+  action_type: control_msgs/action/FollowJointTrajectory
+  fixed_goal:
+    joint_positions: [0, 0, 0, 0, 0, 0]
+    duration_sec: 3.0
+logging:
+  record_before_state: true
+  record_after_state: true
+  record_result: true

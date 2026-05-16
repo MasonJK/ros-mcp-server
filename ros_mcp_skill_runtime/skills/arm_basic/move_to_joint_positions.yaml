@@ -1,0 +1,36 @@
+name: move_to_joint_positions
+description: Move the robot arm to a target joint configuration.
+safety_tier: act
+inputs:
+  type: object
+  required: [joint_positions]
+  properties:
+    joint_positions:
+      type: array
+      items:
+        type: number
+        minimum: -3.14
+        maximum: 3.14
+      minItems: 6
+      maxItems: 6
+    duration_sec:
+      type: number
+      default: 3.0
+      minimum: 0.5
+      maximum: 10.0
+requires:
+  topics_read: [/joint_states]
+  topics_write: []
+  services: []
+  actions: [/joint_trajectory_controller/follow_joint_trajectory]
+validation:
+  checks: [controller_available, joint_count_matches, joint_limits, duration_bounds]
+executor:
+  backend: mock
+  type: action
+  action_name: /joint_trajectory_controller/follow_joint_trajectory
+  action_type: control_msgs/action/FollowJointTrajectory
+logging:
+  record_before_state: true
+  record_after_state: true
+  record_result: true
