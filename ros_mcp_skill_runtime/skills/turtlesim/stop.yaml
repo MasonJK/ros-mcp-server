@@ -1,0 +1,25 @@
+name: stop
+description: Stop turtlesim by publishing zero velocity.
+safety_tier: act
+inputs:
+  type: object
+  properties: {}
+requires:
+  topics_read: []
+  topics_write: [/turtle1/cmd_vel]
+  services: []
+  actions: []
+validation:
+  checks: [permission_check]
+executor:
+  backend: ros_mcp
+  type: topic
+  topic_name: /turtle1/cmd_vel
+  message_type: geometry_msgs/Twist
+  fixed_message:
+    linear: {x: 0.0, y: 0.0, z: 0.0}
+    angular: {x: 0.0, y: 0.0, z: 0.0}
+logging:
+  record_before_state: true
+  record_after_state: true
+  record_result: true

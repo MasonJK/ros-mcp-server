@@ -1,0 +1,23 @@
+name: stop_robot
+description: Stop arm motion through the configured stop service.
+safety_tier: act
+inputs:
+  type: object
+  properties: {}
+requires:
+  topics_read: []
+  topics_write: []
+  services: [/arm/stop]
+  actions: []
+validation:
+  checks: [permission_check]
+executor:
+  backend: mock
+  type: service
+  service_name: /arm/stop
+  service_type: std_srvs/srv/Trigger
+  fixed_request: {}
+logging:
+  record_before_state: true
+  record_after_state: true
+  record_result: true

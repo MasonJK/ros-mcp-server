@@ -1,0 +1,20 @@
+name: get_robot_state
+description: Inspect the robot state without commanding motion.
+safety_tier: observe
+inputs:
+  type: object
+  properties: {}
+requires:
+  topics_read: [/joint_states]
+  topics_write: []
+  services: []
+  actions: []
+validation:
+  checks: [permission_check]
+executor:
+  backend: mock
+  type: state
+logging:
+  record_before_state: false
+  record_after_state: false
+  record_result: true
